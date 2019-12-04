@@ -1,0 +1,27 @@
+{
+  "name": "node_mentoring_program",
+  "version": "1.0.0",
+  "description": "This repository is for the homework or task assigned under EPAM Node.js global mentoring program.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task1": "src/task1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yogeshepam/node_mentoring_program.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yogeshepam/node_mentoring_program/issues"
+  },
+  "homepage": "https://github.com/yogeshepam/node_mentoring_program#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
+}
