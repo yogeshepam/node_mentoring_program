@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "task1": "src/task1"
+    "task1": "nodemon src/reverseString.js"
   },
   "repository": {
     "type": "git",
