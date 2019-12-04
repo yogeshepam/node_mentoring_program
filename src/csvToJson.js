@@ -1,5 +1,5 @@
-const csvtojson = require("csvtojson");
-const fs = require("fs");
+import csvtojson from "csvtojson";
+import fs from "fs";
 
 const csvToJson = () => {
   if (fs.existsSync("./example.txt")) {
@@ -32,4 +32,4 @@ const appendFile = json => {
   });
 };
 
-console.log(csvToJson());
+csvToJson();
