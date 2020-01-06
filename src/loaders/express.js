@@ -10,8 +10,11 @@ export default ({ app }) => {
 
   /// catch 404 and forward to error handler
   app.use((req, res, next) => {
-    const err = new Error("Not Found");
-    err["status"] = 404;
+    const err = {
+      message: "Not Found",
+      status: 404
+    };
+
     next(err);
   });
 
@@ -26,12 +29,10 @@ export default ({ app }) => {
     return next(err);
   });
 
-  app.use((err, req, res, next) => {
+  app.use((err, req, res) => {
     res.status(err.status || 500);
     res.json({
-      errors: {
-        message: err.message
-      }
+      errors: { ...err }
     });
   });
 };

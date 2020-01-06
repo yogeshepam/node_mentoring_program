@@ -1,5 +1,5 @@
 const User = {
-  id: String,
+  id: Number,
   login: String,
   password: String,
   age: Number,
