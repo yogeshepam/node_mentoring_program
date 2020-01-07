@@ -4,7 +4,7 @@ import Schemas from "../schemas";
 
 const isValidSchema = () => (req, res, next) => {
   // enabled HTTP methods for request data validation
-  const _supportedMethods = ["post", "put"];
+  const _supportedMethods = ["patch", "post", "put"];
 
   // Joi validation options
   const _validationOptions = {
@@ -34,6 +34,7 @@ const isValidSchema = () => (req, res, next) => {
         // Joi Error
         const JoiError = {
           message: "Schema is not valid",
+          status: 422,
           error: {
             original: error._object,
 
@@ -45,10 +46,7 @@ const isValidSchema = () => (req, res, next) => {
           }
         };
 
-        const err = new Error();
-        err["status"] = 422;
-
-        next({ ...err, ...JoiError });
+        next(JoiError);
       } else {
         next();
       }

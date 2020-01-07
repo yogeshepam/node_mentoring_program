@@ -35,4 +35,15 @@ export default app => {
 
     return res.json(newUsers).status(200);
   });
+
+  /* ==
+  update user;
+  == * */
+  route.patch("/patch", isValidSchema(), (req, res) => {
+    const user = req.body;
+
+    const newUsers = [...userData, user];
+
+    return res.json(newUsers).status(200);
+  });
 };

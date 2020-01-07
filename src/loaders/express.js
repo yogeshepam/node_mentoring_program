@@ -29,10 +29,10 @@ export default ({ app }) => {
     return next(err);
   });
 
-  app.use((err, req, res) => {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.json({
-      errors: { ...err }
+      errors: err
     });
   });
 };
