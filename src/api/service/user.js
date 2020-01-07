@@ -55,3 +55,15 @@ export const deleteUserById = (id, callback) => {
 
   return callback();
 };
+
+/**
+ * Function to execute the update query by user ID
+ * @param {*} loginSubstring login property to filter and sort on
+ * @param {*} limit users
+ * @param {*} callback callback function
+ */
+export const getAutoSuggestUsers = (loginSubstring, limit, callback) => {
+  const users = _.filter(users, loginSubstring);
+  const sortUsers = _.sortBy(users, o => o.login);
+  return callback(sortUsers);
+};

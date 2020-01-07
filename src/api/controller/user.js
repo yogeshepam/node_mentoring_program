@@ -55,3 +55,14 @@ export const remove = (req, res) => {
 
   userService.deleteUserById(id, (error, response) => {});
 };
+
+/**
+ * Function to get auto-suggest list from limitusers.
+ */
+export const autoSuggest = (req, res) => {
+  const { body } = req;
+  const limit = 1;
+  userService.getAutoSuggestUsers(body.login, limit, (error, users) => {
+    return res.status(200).send(users);
+  });
+};

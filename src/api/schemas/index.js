@@ -1,9 +1,17 @@
 import Joi from "joi";
 
 const userSchema = Joi.object({
+  age: Joi.number()
+    .integer()
+    .min(4)
+    .max(130)
+    .required(),
+
   id: Joi.number()
-    .min(3)
-    .max(30),
+    .integer()
+    .required(),
+
+  isDeleted: Joi.bool().required(),
 
   login: Joi.string()
     .email({
@@ -11,34 +19,12 @@ const userSchema = Joi.object({
     })
     .required(),
 
-  password: Joi.string().required(),
-
-  age: Joi.number()
-    .integer()
-    .min(18),
-
-  isDeleted: Joi.bool()
+  password: Joi.string()
+    .regex(/^(?=.*?\d)(?=.*?[a-zA-Z])[a-zA-Z\d]+$/)
+    .required()
 });
-
-const userPatchSchema = Joi.object({
-  id: Joi.number()
-    .min(3)
-    .max(30),
-
-  login: Joi.string().email({
-    minDomainSegments: 2
-  }),
-
-  password: Joi.string(),
-
-  age: Joi.number()
-    .integer()
-    .min(18),
-
-  isDeleted: Joi.bool()
-}).min(1);
 
 export default {
   "/": userSchema,
-  "/patch": userPatchSchema
+  "/patch": userSchema
 };
