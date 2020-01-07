@@ -1,39 +1,39 @@
-import { Router } from "express";
-import { isValidSchema } from "../middlewares/";
-import * as user from "../controller/user";
+import { Router } from 'express';
+import { isValidSchema } from '../middlewares/';
+import * as user from '../controller/user';
 
 const route = Router();
 
 export default app => {
-  app.use("/users", route);
+    app.use('/users', route);
 
-  /**
+    /**
    * To create the user.
    */
-  route.post("/", isValidSchema(), user.create);
+    route.post('/', isValidSchema(), user.create);
 
-  /**
+    /**
    * To get the single user by their id.
    */
-  route.get("/user/:id", user.find);
+    route.get('/user/:id', user.find);
 
-  /**
+    /**
    * To get all the users.
    */
-  route.get("/", user.find);
+    route.get('/', user.find);
 
-  /**
+    /**
    * To update user by id.
    */
-  route.patch("/updatebyid", isValidSchema(), user.update);
+    route.patch('/updatebyid', isValidSchema(), user.update);
 
-  /**
+    /**
    * To soft delete user by id.
    */
-  route.patch("/delete", isValidSchema(), user.update);
+    route.patch('/delete', isValidSchema(), user.update);
 
-  /**
+    /**
    * To delete user by id.
    */
-  route.delete("/delete/:id", user.remove);
+    route.delete('/delete/:id', user.remove);
 };

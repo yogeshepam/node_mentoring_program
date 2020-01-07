@@ -1,14 +1,14 @@
-import { Router } from "express";
-import user from "./routes/user";
+import { Router } from 'express';
+import user from './routes/user';
 
 export default () => {
-  const app = Router();
+    const app = Router();
 
-  app.get("/", (req, res) => {
-    res.json({ ok: true });
-  });
+    app.get('/', (req, res) => {
+        res.json({ ok: true });
+    });
 
-  user(app);
+    user(app);
 
-  return app;
+    return app;
 };

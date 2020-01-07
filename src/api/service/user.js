@@ -1,4 +1,4 @@
-import _ from "lodash";
+import _ from 'lodash';
 
 const users = [];
 
@@ -8,28 +8,28 @@ const users = [];
  * @param {*} callback callback function.
  */
 export const createUser = (userData, callback) => {
-  const newUsers = [...users, userData];
+    const newUsers = [...users, userData];
 
-  return callback({ users: newUsers });
+    return callback({ users: newUsers });
 };
 
 /**
- * Funtion to find the user from collections.
+ * Function to find the user from collections.
  * @param {*} id to find user
  * @param {*} callback callback function
  */
 export const findUser = (id, callback) => {
-  const user = _.find(users, { id });
+    const user = _.find(users, { id });
 
-  return callback({ user });
+    return callback({ user });
 };
 
 /**
- * Funtion to fetch all the users from collections.
+ * Function to fetch all the users from collections.
  * @param {*} callback callback function
  */
 export const findUsers = callback => {
-  return callback({ users });
+    return callback({ users });
 };
 
 /**
@@ -39,10 +39,10 @@ export const findUsers = callback => {
  * @param {*} callback callback function
  */
 export const updateUserById = (id, data, callback) => {
-  const user = _.find(users, { id });
-  // update
+    const user = _.find(users, { id });
+    // update
 
-  return callback({ user });
+    return callback({ user });
 };
 
 /**
@@ -51,9 +51,9 @@ export const updateUserById = (id, data, callback) => {
  * @param {*} callback callback function
  */
 export const deleteUserById = (id, callback) => {
-  // delete user from array
+    // delete user from array
 
-  return callback();
+    return callback();
 };
 
 /**
@@ -63,7 +63,7 @@ export const deleteUserById = (id, callback) => {
  * @param {*} callback callback function
  */
 export const getAutoSuggestUsers = (loginSubstring, limit, callback) => {
-  const users = _.filter(users, loginSubstring);
-  const sortUsers = _.sortBy(users, o => o.login);
-  return callback(sortUsers);
+    const filteredUsers = _.filter(users, loginSubstring);
+    const sortUsers = _.sortBy(filteredUsers, o => o.login);
+    return callback(sortUsers);
 };
