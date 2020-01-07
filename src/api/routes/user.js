@@ -1,49 +1,39 @@
 import { Router } from "express";
-import _ from "lodash";
 import { isValidSchema } from "../middlewares/";
+import * as user from "../controller/user";
 
 const route = Router();
-
-const userData = [];
 
 export default app => {
   app.use("/users", route);
 
-  /* ==
-  get user by id;
-  == * */
-  route.get("/:id", (req, res) => {
-    let user = _.find(userData, { id: req.params.id });
+  /**
+   * To create the user.
+   */
+  route.post("/", isValidSchema(), user.create);
 
-    if (user === undefined) {
-      return res
-        .status(404)
-        .json({ message: `User with id ${req.params.id} not found` });
-    } else {
-      return res.json(user);
-    }
-  });
+  /**
+   * To get the single user by their id.
+   */
+  route.get("/user/:id", user.find);
 
-  /* ==
-  create user;
-  == * */
-  route.post("/", isValidSchema(), (req, res) => {
-    const user = req.body;
-    console.log("user hit: ", user);
+  /**
+   * To get all the users.
+   */
+  route.get("/", user.find);
 
-    const newUsers = [...userData, user];
+  /**
+   * To update user by id.
+   */
+  route.patch("/updatebyid", isValidSchema(), user.update);
 
-    return res.json(newUsers).status(200);
-  });
+  /**
+   * To soft delete user by id.
+   */
+  route.patch("/delete", isValidSchema(), user.update);
 
-  /* ==
-  update user;
-  == * */
-  route.patch("/patch", isValidSchema(), (req, res) => {
-    const user = req.body;
-
-    const newUsers = [...userData, user];
-
-    return res.json(newUsers).status(200);
-  });
+  /**
+   * To delete user by id.
+   */
+  route.delete("/delete/:id", user.remove);
 };
