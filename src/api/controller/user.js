@@ -19,18 +19,18 @@ export const find = (req, res, next) => {
         params: { id }
     } = req;
 
-    id
-        ? userService.findUser(id, ({ error, user }) => {
-            if (user === undefined) {
-                return res
-                    .status(404)
-                    .json({ message: `User with id ${req.params.id} not found` });
-            }
-            return res.json(user);
-        })
-        : userService.findUsers(({ error, users }) => {
-            return res.json(users);
-        });
+    id ? userService.findUser(id, ({ error, user }) => {
+        if (user === undefined) {
+            return res
+                .status(404)
+                .json({ message: `User with id ${req.params.id} not found` });
+        }
+        return res.json(user);
+    }) : userService.findUsers(({ error, users }) => {
+        console.log('error', error)
+        console.log('users', users)
+        return res.json(users);
+    });
 };
 
 /**

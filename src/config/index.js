@@ -9,20 +9,25 @@ if (!envFound) {
 
 export default {
     /**
-   * Choose the port
-   */
+     * Choose the port
+     */
     port: parseInt(process.env.PORT, 10),
 
     /**
-   * For winston logger
-   */
+     * From in memory DB
+     */
+    databaseURL: process.env.MONGODB_URI,
+
+    /**
+     * For winston logger
+     */
     logs: {
         level: process.env.LOG_LEVEL || 'silly'
     },
 
     /**
-   * API configs
-   */
+     * API configs
+     */
     api: {
         prefix: '/api'
     }

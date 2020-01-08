@@ -1,9 +1,14 @@
-const User = {
-    id: Number,
-    login: String,
-    password: String,
-    age: Number,
-    isDeleted: Boolean
-};
+import mongoose from 'mongoose';
 
-export default User;
+export const UserSchema = new mongoose.Schema(
+    {
+        id: Number,
+        login: String,
+        password: String,
+        age: Number,
+        isDeleted: Boolean
+    },
+    { timestamps: true }
+);
+
+export default mongoose.model('User', UserSchema);

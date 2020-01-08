@@ -1,5 +1,5 @@
 import _ from 'lodash';
-
+import User from '../../models/user';
 const users = [];
 
 /**
@@ -7,10 +7,14 @@ const users = [];
  * @param {*} userData user data
  * @param {*} callback callback function.
  */
-export const createUser = (userData, callback) => {
-    const newUsers = [...users, userData];
+export const createUser =  (userData, callback) => {
+    const user = new User(userData);
+    User.create(user, async (error, result) => {
+        if (error) return callback({ error });
+        const updatedUsers = await User.find();
 
-    return callback({ users: newUsers });
+        return callback({ users: updatedUsers });
+    });
 };
 
 /**
@@ -19,17 +23,22 @@ export const createUser = (userData, callback) => {
  * @param {*} callback callback function
  */
 export const findUser = (id, callback) => {
-    const user = _.find(users, { id });
-
-    return callback({ user });
+    User.find({ id }, (error, user) => {
+        console.log('one error', error);
+        console.log('one result', user);
+        if (error) return error;
+        return callback({ user });
+    });
 };
 
 /**
  * Function to fetch all the users from collections.
  * @param {*} callback callback function
  */
-export const findUsers = callback => {
-    return callback({ users });
+export const findUsers = async callback => {
+    const allUsers = await User.find();
+
+    return callback({ users: allUsers });
 };
 
 /**
