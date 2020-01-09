@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import User from '../../models/user';
 
 /**
@@ -9,10 +8,9 @@ import User from '../../models/user';
 export const createUser = (userData, callback) => {
     const user = new User(userData);
     User.create(user, async (error, result) => {
-        if (error) return callback(error, null);
         const updatedUsers = await User.find();
 
-        callback(null, {
+        callback(error, {
             message: 'Successfully added new user',
             newUser: result,
             users: updatedUsers
@@ -26,11 +24,7 @@ export const createUser = (userData, callback) => {
  * @param {*} callback callback function
  */
 export const findUser = (id, callback) => {
-    User.find({ id }, (error, result) => {
-        if (error) return callback(error, null);
-
-        callback(null, { user: result });
-    });
+    User.find({ id }, (error, result) => callback(error, result));
 };
 
 /**
@@ -38,11 +32,7 @@ export const findUser = (id, callback) => {
  * @param {*} callback callback function
  */
 export const findUsers = callback => {
-    User.find({}, (error, result) => {
-        if (error) return callback(error, null);
-
-        callback(null, { users: result });
-    });
+    User.find({}, (error, result) => callback(error, result));
 };
 
 /**
@@ -52,12 +42,7 @@ export const findUsers = callback => {
  * @param {*} callback callback function
  */
 export const updateUserById = (id, newData, callback) => {
-    User.findOneAndUpdate({ id }, newData, async (error, result) => {
-        if (error) return callback(error, null);
-        const updatedUsers = await User.find();
-
-        callback(null, { updatedUser: result, users: updatedUsers });
-    });
+    User.findOneAndUpdate({ id }, newData, async (error, result) => callback(error, result));
 };
 
 /**
@@ -66,14 +51,7 @@ export const updateUserById = (id, newData, callback) => {
  * @param {*} callback callback function
  */
 export const deleteUserById = (id, callback) => {
-    User.deleteOne({ id }, async (error, result) => {
-        if (error) return callback(error, null);
-
-        callback(null, {
-            deletedUser: result,
-            message: 'Successfully removed the user'
-        });
-    });
+    User.deleteOne({ id }, (error, result) => callback(error, result.result));
 };
 
 /**
@@ -86,9 +64,5 @@ export const getAutoSuggestUsers = (loginSubstring, limit, callback) => {
     User.find({ login: new RegExp(loginSubstring, 'i') })
         .sort({ login: 1 })
         .limit(parseInt(limit, 10))
-        .exec((error, result) => {
-            if (error) return callback(error, null);
-
-            return callback(null, { users: result });
-        });
+        .exec((error, result) => callback(error, result));
 };

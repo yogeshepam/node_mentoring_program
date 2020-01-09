@@ -26,5 +26,6 @@ const userSchema = Joi.object({
 
 export default {
     '/': userSchema,
+    '/delete': userSchema,
     '/updatebyid': userSchema
 };

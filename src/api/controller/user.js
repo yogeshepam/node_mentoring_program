@@ -13,7 +13,7 @@ export const create = (req, res, next) => {
 };
 
 /**
- * Function to find the user/ fetch all users / to get auto-suggest list from limitusers.
+ * Function to find the user/ fetch all users / to get auto-suggest list from limit users.
  */
 export const find = (req, res, next) => {
     const {
@@ -21,26 +21,25 @@ export const find = (req, res, next) => {
         query: { loginSubstring, limit = 10 }
     } = req;
 
-    console.log('limit', limit)
     if (id) {
-        userService.findUser(id, (error, response) => {
+        userService.findUser(id, (error, user) => {
             if (error) return next(error);
-            if (!response.user.length) {
+            if (!user.length) {
                 return res
                     .status(404)
                     .json({ message: `User with id ${id} not found` });
             }
-            return res.status(200).json(response);
+            return res.status(200).json({ user });
         });
     } else if (loginSubstring) {
-        userService.getAutoSuggestUsers(loginSubstring, limit, (error, response) => {
+        userService.getAutoSuggestUsers(loginSubstring, limit, (error, users) => {
             if (error) return next(error);
-            return res.status(200).json(response);
+            return res.status(200).json({ users });
         });
     } else {
-        userService.findUsers((error, response) => {
+        userService.findUsers((error, allUsers) => {
             if (error) return next(error);
-            return res.status(200).json(response);
+            return res.status(200).json({ users: allUsers });
         });
     }
 };
@@ -50,10 +49,12 @@ export const find = (req, res, next) => {
  */
 export const update = (req, res, next) => {
     const { body } = req;
-
     userService.updateUserById(body.id, body, (error, response) => {
         if (error) return next(error);
-        return res.status(200).send(response);
+        if (!response) {
+            return next({ message: `User with ${body.id} doesn't exist` });
+        }
+        return res.status(200).send({ updatedUser: response });
     });
 };
 
@@ -65,8 +66,17 @@ export const remove = (req, res, next) => {
         params: { id }
     } = req;
 
-    userService.deleteUserById(id, (error, response) => {
+    userService.deleteUserById(id, (error, deletedUser) => {
         if (error) return next(error);
-        return res.status(200).send(response);
+        if (!deletedUser.n) {
+            return next({
+                message: `User with ${id} doesn't exist`,
+                details: deletedUser
+            });
+        }
+        return res.status(200).send({
+            deletedUser,
+            message: 'Successfully removed the user'
+        });
     });
 };
