@@ -11,8 +11,6 @@ export default async ({ expressApp }) => {
         Logger.info('✌️ DB loaded and connected!');
     });
 
-    require('../models/user');
-
     await expressLoader({ app: expressApp });
     Logger.info('✌️ Express loaded');
 };

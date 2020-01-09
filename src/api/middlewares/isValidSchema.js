@@ -19,11 +19,8 @@ const isValidSchema = () => (req, res, next) => {
         route: { path }
     } = req;
 
-    if (
-        _.includes(_supportedMethods, method.toLowerCase()) &&
-    _.has(Schemas, path)
-    ) {
-    // get schema for the current route path
+    if (_.includes(_supportedMethods, method.toLowerCase()) && _.has(Schemas, path)) {
+        // get schema for the current route path
         const _schema = _.get(Schemas, path);
 
         if (_schema) {

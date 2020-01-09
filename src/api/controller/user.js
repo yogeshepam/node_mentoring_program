@@ -6,40 +6,53 @@ import * as userService from '../service/user';
 export const create = (req, res, next) => {
     const { body } = req;
 
-    userService.createUser(body, ({ error, users }) => {
-        return res.json(users).status(200);
+    userService.createUser(body, (error, response) => {
+        if (error) return next(error);
+        return res.status(200).json(response);
     });
 };
 
 /**
- * Function to find the user.
+ * Function to find the user/ fetch all users / to get auto-suggest list from limitusers.
  */
 export const find = (req, res, next) => {
     const {
-        params: { id }
+        params: { id },
+        query: { loginSubstring, limit = 10 }
     } = req;
 
-    id ? userService.findUser(id, ({ error, user }) => {
-        if (user === undefined) {
-            return res
-                .status(404)
-                .json({ message: `User with id ${req.params.id} not found` });
-        }
-        return res.json(user);
-    }) : userService.findUsers(({ error, users }) => {
-        console.log('error', error)
-        console.log('users', users)
-        return res.json(users);
-    });
+    console.log('limit', limit)
+    if (id) {
+        userService.findUser(id, (error, response) => {
+            if (error) return next(error);
+            if (!response.user.length) {
+                return res
+                    .status(404)
+                    .json({ message: `User with id ${id} not found` });
+            }
+            return res.status(200).json(response);
+        });
+    } else if (loginSubstring) {
+        userService.getAutoSuggestUsers(loginSubstring, limit, (error, response) => {
+            if (error) return next(error);
+            return res.status(200).json(response);
+        });
+    } else {
+        userService.findUsers((error, response) => {
+            if (error) return next(error);
+            return res.status(200).json(response);
+        });
+    }
 };
 
 /**
  * Function to update the user data  by their ID.
  */
-export const update = (req, res) => {
+export const update = (req, res, next) => {
     const { body } = req;
 
-    userService.updateUserById(body.id, body, (err, response) => {
+    userService.updateUserById(body.id, body, (error, response) => {
+        if (error) return next(error);
         return res.status(200).send(response);
     });
 };
@@ -47,21 +60,13 @@ export const update = (req, res) => {
 /**
  * Function to delete the user from collection.
  */
-export const remove = (req, res) => {
+export const remove = (req, res, next) => {
     const {
         params: { id }
     } = req;
 
-    userService.deleteUserById(id, (error, response) => {});
-};
-
-/**
- * Function to get auto-suggest list from limitusers.
- */
-export const autoSuggest = (req, res) => {
-    const { body } = req;
-    const limit = 1;
-    userService.getAutoSuggestUsers(body.login, limit, (error, users) => {
-        return res.status(200).send(users);
+    userService.deleteUserById(id, (error, response) => {
+        if (error) return next(error);
+        return res.status(200).send(response);
     });
 };

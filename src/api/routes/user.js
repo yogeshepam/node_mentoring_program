@@ -18,14 +18,14 @@ export default app => {
     route.get('/user/:id', user.find);
 
     /**
-   * To get all the users.
+   * To get all the users or to filter limit users.
    */
     route.get('/', user.find);
 
     /**
    * To update user by id.
    */
-    route.patch('/updatebyid', isValidSchema(), user.update);
+    route.put('/updatebyid', isValidSchema(), user.update);
 
     /**
    * To soft delete user by id.

@@ -1,19 +1,22 @@
 import _ from 'lodash';
 import User from '../../models/user';
-const users = [];
 
 /**
  * Function to execute the create query to create the user.
- * @param {*} userData user data
+ * @param {*} userData user data received in request.
  * @param {*} callback callback function.
  */
-export const createUser =  (userData, callback) => {
+export const createUser = (userData, callback) => {
     const user = new User(userData);
     User.create(user, async (error, result) => {
-        if (error) return callback({ error });
+        if (error) return callback(error, null);
         const updatedUsers = await User.find();
 
-        return callback({ users: updatedUsers });
+        callback(null, {
+            message: 'Successfully added new user',
+            newUser: result,
+            users: updatedUsers
+        });
     });
 };
 
@@ -23,11 +26,10 @@ export const createUser =  (userData, callback) => {
  * @param {*} callback callback function
  */
 export const findUser = (id, callback) => {
-    User.find({ id }, (error, user) => {
-        console.log('one error', error);
-        console.log('one result', user);
-        if (error) return error;
-        return callback({ user });
+    User.find({ id }, (error, result) => {
+        if (error) return callback(error, null);
+
+        callback(null, { user: result });
     });
 };
 
@@ -35,23 +37,27 @@ export const findUser = (id, callback) => {
  * Function to fetch all the users from collections.
  * @param {*} callback callback function
  */
-export const findUsers = async callback => {
-    const allUsers = await User.find();
+export const findUsers = callback => {
+    User.find({}, (error, result) => {
+        if (error) return callback(error, null);
 
-    return callback({ users: allUsers });
+        callback(null, { users: result });
+    });
 };
 
 /**
  * Function to execute the update query by user ID
  * @param {*} id user id
- * @param {*} data user data which we need to update.
+ * @param {*} newData user data which we need to update.
  * @param {*} callback callback function
  */
-export const updateUserById = (id, data, callback) => {
-    const user = _.find(users, { id });
-    // update
+export const updateUserById = (id, newData, callback) => {
+    User.findOneAndUpdate({ id }, newData, async (error, result) => {
+        if (error) return callback(error, null);
+        const updatedUsers = await User.find();
 
-    return callback({ user });
+        callback(null, { updatedUser: result, users: updatedUsers });
+    });
 };
 
 /**
@@ -60,19 +66,29 @@ export const updateUserById = (id, data, callback) => {
  * @param {*} callback callback function
  */
 export const deleteUserById = (id, callback) => {
-    // delete user from array
+    User.deleteOne({ id }, async (error, result) => {
+        if (error) return callback(error, null);
 
-    return callback();
+        callback(null, {
+            deletedUser: result,
+            message: 'Successfully removed the user'
+        });
+    });
 };
 
 /**
  * Function to execute the update query by user ID
- * @param {*} loginSubstring login property to filter and sort on
- * @param {*} limit users
+ * @param {*} loginSubstring login property to filter on
+ * @param {*} limit: no of users in response.
  * @param {*} callback callback function
  */
 export const getAutoSuggestUsers = (loginSubstring, limit, callback) => {
-    const filteredUsers = _.filter(users, loginSubstring);
-    const sortUsers = _.sortBy(filteredUsers, o => o.login);
-    return callback(sortUsers);
+    User.find({ login: new RegExp(loginSubstring, 'i') })
+        .sort({ login: 1 })
+        .limit(parseInt(limit, 10))
+        .exec((error, result) => {
+            if (error) return callback(error, null);
+
+            return callback(null, { users: result });
+        });
 };
