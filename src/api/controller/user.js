@@ -1,4 +1,4 @@
-import * as userService from '../service/user';
+import * as userService from '../../services/user';
 
 /**
  * Function to create the user.

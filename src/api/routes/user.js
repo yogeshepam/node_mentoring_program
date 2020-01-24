@@ -19,7 +19,6 @@ export default app => {
 
     /**
      * To get all the users or to filter limit users.
-     * http://localhost:4000/api/users?loginSubstring=@go&&limit=2
      */
     route.get('/', user.find);
 

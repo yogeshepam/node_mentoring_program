@@ -1,4 +1,4 @@
-import User from '../../models/user';
+import User from '../models/user';
 
 /**
  * Function to execute the create query to create the user.
