@@ -1,4 +1,4 @@
-import User from '../models/user.mongoose';
+import User from '../models/user.postgres';
 
 /**
  * Function to execute the create query to create the user.
@@ -24,7 +24,7 @@ export const createUser = (userData, callback) => {
  * @param {*} callback callback function
  */
 export const findUser = (id, callback) => {
-    User.find({ id }, (error, result) => callback(error, result));
+    User.findOne({ where: { id } }, (error, result) => callback(error, result));
 };
 
 /**
@@ -32,7 +32,7 @@ export const findUser = (id, callback) => {
  * @param {*} callback callback function
  */
 export const findUsers = callback => {
-    User.find({}, (error, result) => callback(error, result));
+    User.findAll({ limit: 100 }, (error, result) => callback(error, result));
 };
 
 /**

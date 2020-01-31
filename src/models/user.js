@@ -1,14 +1,14 @@
-import mongoose from 'mongoose';
 
-export const UserSchema = new mongoose.Schema(
-    {
-        id: Number,
-        login: String,
-        password: String,
-        age: Number,
-        isDeleted: Boolean
-    },
-    { timestamps: true }
-);
-
-export default mongoose.model('User', UserSchema);
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define('User', {
+        age: DataTypes.INTEGER,
+        id: DataTypes.INTEGER,
+        isDeleted: DataTypes.BOOLEAN,
+        login: DataTypes.STRING,
+        password: DataTypes.STRING
+    }, {});
+    User.associate = function (models) {
+    // associations can be defined here
+    };
+    return User;
+};

@@ -1,6 +1,10 @@
 # node_mentoring_program
 This repository is for the homework or task assigned under EPAM Node.js global mentoring program.
 
+Dependencies:
+1. Install DB PostgreSQL on your machine.
+2. Add DB node_mentoring to your machine db.
+
 Steps to setup:
 
 1. Clone repo.
@@ -46,3 +50,7 @@ PUT:     `users/updatebyid`
 PUT:     `users/delete` (soft delete)
 
 DELETE:  `users/delete/:id` (hard delete)
+
+Command used to create model and migrations:
+
+`sequelize model:create --name User --attributes age:Number`

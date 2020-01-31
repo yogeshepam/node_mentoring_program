@@ -19,6 +19,22 @@ export default {
     databaseURL: process.env.MONGODB_URI,
 
     /**
+   * For postgres DB
+   */
+    development: {
+        url: process.env.DEV_DATABASE_URL,
+        dialect: 'postgres'
+    },
+    test: {
+        url: process.env.DEV_DATABASE_URL,
+        dialect: 'postgres'
+    },
+    production: {
+        url: process.env.DEV_DATABASE_URL,
+        dialect: 'postgres'
+    },
+
+    /**
      * For winston logger
      */
     logs: {
