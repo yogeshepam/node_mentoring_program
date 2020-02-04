@@ -39,7 +39,7 @@ http://localhost:4000/api/
 
 POST:   `users/`
 
-GET:    `users/user/:id`
+GET:    `users/:id`
 
 GET:     `users`
 

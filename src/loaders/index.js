@@ -8,10 +8,10 @@ export default async ({ expressApp }) => {
     await postgresLoader();
 
     db.on('error', () => {
-        Logger.info('> error occurred from the database!');
+        Logger.info('> error occurred from the mongoose database!');
     });
     db.once('open', () => {
-        Logger.info('✌️ DB loaded and connected!');
+        Logger.info('✌ Mongoose DB loaded and connected!');
     });
 
     await expressLoader({ app: expressApp });

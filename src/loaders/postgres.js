@@ -1,14 +1,15 @@
-import { Sequelize } from 'sequelize';
+import { Client } from 'pg';
 import config from '../config';
 import Logger from './logger';
 
-const sequelize = new Sequelize(config.development);
+const client = new Client({ connectionString: config.development.url });
 
 export default async () => {
     try {
-        await sequelize.authenticate();
-        Logger.info('✌️ DB loaded and connected!');
+        await client.connect();
+        Logger.info('✌️Postgres DB loaded and connected!');
     } catch (e) {
-        Logger.info('> error occurred from the database!');
+        console.log('e', e.message);
+        Logger.info('> error occurred from the postgress database!');
     }
 };
