@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
-import { User } from '../models';
+import DB from '../models';
 
+const { User } = DB;
 /**
  * Function to execute the create query to create the user.
  * @param {*} userData user data received in request.
