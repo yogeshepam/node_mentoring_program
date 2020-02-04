@@ -1,5 +1,5 @@
 import { Client } from 'pg';
-import config from '../config';
+import config from '../config/config.postgres';
 import Logger from './logger';
 
 const client = new Client({ connectionString: config.development.url });

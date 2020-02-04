@@ -1,7 +1,7 @@
 import express from 'express';
 import Loaders from './loaders';
 import Logger from './loaders/logger';
-import config from './config/';
+import config from './config';
 
 const startServer = async () => {
     const app = express();

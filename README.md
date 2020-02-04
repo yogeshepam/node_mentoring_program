@@ -3,31 +3,42 @@ This repository is for the homework or task assigned under EPAM Node.js global m
 
 Dependencies:
 1. Install DB PostgreSQL on your machine.
-2. Add DB node_mentoring to your machine db.
 
 Steps to setup:
 
 1. Clone repo.
 2. Run `npm install` from the root folder.
-3. Run `npm start`.
-4. There should be a message on console
+3. Run `npm run createdb` in `powershell` to create `node_mentoring` DB on your machine. 
+   If asked for a password enter password for postgres or change the user in script.
+    
+    3.1 createdb: command not found: it means PostgreSQL is not rightly installed. You can
+        run `createdb node_mentoring` from absolute path: `C:\Program Files\PostgreSQL\12\bin`.
+        
+    3.2 Try adding to system envio var 
+        `C:\Program Files\PostgreSQL\12\bin`
+        `C:\Program Files\PostgreSQL\12\lib`
+        
+    3.2 If still there is problem running the script, Add DB to your machine manually.
+4. Run `npm run migratedb`, to use schemas to create the table Users.
+5. Run `npm run seeddb`, to use schemas to populate the table with seed users.
+6. Run `npm start`.
+7. There should be a message on console
     
     Express loaded, 
     
     DB loaded,
     
     Application running on port 4000.
-5. You can check in chrome on route `http://localhost:4000/api/`, if response is:
+8. You can check in chrome on route `http://localhost:4000/api/`, if response is:
     
     `{"ok":true}`
 
-6. POST, PUT, DELETE APIs can be tested in postman.
+9. POST, PUT, DELETE APIs can be tested in postman.
 
 Sample valid JSON to create a user:
 
 `{
 	"age": "42",
-	"id": 1,
 	"isDeleted": false,
 	"login": "test@test.com",
 	"password": "A1"
