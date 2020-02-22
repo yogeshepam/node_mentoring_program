@@ -7,10 +7,6 @@ const userSchema = Joi.object({
         .max(130)
         .required(),
 
-    id: Joi.number()
-        .integer()
-        .required(),
-
     isDeleted: Joi.bool().required(),
 
     login: Joi.string()
