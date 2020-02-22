@@ -62,6 +62,6 @@ PUT:     `users/delete` (soft delete)
 
 DELETE:  `users/delete/:id` (hard delete)
 
-Command used to create model and migrations:
+How to create add new entity model and migrations?
 
-`sequelize model:create --name User --attributes age:Number`
+`sequelize model:generate --name Group --attributes name:string,permissions:array`

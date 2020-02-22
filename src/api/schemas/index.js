@@ -20,8 +20,14 @@ const userSchema = Joi.object({
         .required()
 });
 
+const groupSchema = Joi.object({
+    name: Joi.string().required(),
+    permissions: Joi.array().items(Joi.string()).required()
+});
+
 export default {
     '/': userSchema,
     '/delete': userSchema,
-    '/updatebyid': userSchema
+    '/updatebyid': userSchema,
+    '/group': groupSchema
 };
