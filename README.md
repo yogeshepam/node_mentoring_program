@@ -49,6 +49,8 @@ Sample valid JSON to create a user:
 	"password": "A1"
 }`
 
+Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
+
 User routes:
 
 http://localhost:4000/api/
