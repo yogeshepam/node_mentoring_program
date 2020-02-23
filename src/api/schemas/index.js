@@ -1,5 +1,5 @@
 import Joi from 'joi';
-
+import { PERMISSIONS } from '../../utils/enums';
 const userSchema = Joi.object({
     age: Joi.number()
         .integer()
@@ -22,7 +22,16 @@ const userSchema = Joi.object({
 
 const groupSchema = Joi.object({
     name: Joi.string().required(),
-    permissions: Joi.array().items(Joi.string()).required()
+    permissions: Joi.array()
+        .items(Joi.string()
+            .valid([
+                PERMISSIONS.READ,
+                PERMISSIONS.WRITE,
+                PERMISSIONS.DELETE,
+                PERMISSIONS.SHARE,
+                PERMISSIONS.UPLOAD_FILES
+            ]))
+        .required()
 });
 
 export default {

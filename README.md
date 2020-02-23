@@ -3,6 +3,11 @@ This repository is for the homework or task assigned under EPAM Node.js global m
 
 Dependencies:
 1. Install DB PostgreSQL on your machine.
+2. Optional: `npm install -g sequelize-cli` 
+(In case you dont', you'll need to prefix every call to the sequelize command with 
+./node_modules/.bin.)
+
+2. Run DB server
 
 Steps to setup:
 
@@ -64,4 +69,7 @@ DELETE:  `users/delete/:id` (hard delete)
 
 How to create add new entity model and migrations?
 
-`sequelize model:generate --name Group --attributes name:string,permissions:array`
+`sequelize model:generate --name Group --attributes name:string,permissions:array:{string}`
+
+How to create seeder files?
+`sequelize seed:create --name Group`
