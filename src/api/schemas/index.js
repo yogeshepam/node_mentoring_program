@@ -1,5 +1,6 @@
 import Joi from 'joi';
-import { PERMISSIONS } from '../../utils/enums';
+import PERMISSIONS from '../../utils/enums';
+
 const userSchema = Joi.object({
     age: Joi.number()
         .integer()
@@ -31,12 +32,13 @@ const groupSchema = Joi.object({
                 PERMISSIONS.SHARE,
                 PERMISSIONS.UPLOAD_FILES
             ]))
-        .required()
 });
 
 export default {
-    '/': userSchema,
-    '/delete': userSchema,
-    '/updatebyid': userSchema,
-    '/group': groupSchema
+    '/api/users/': userSchema,
+    '/api/users/delete': userSchema,
+    '/api/users/updatebyid': userSchema,
+    '/api/groups/': groupSchema,
+    '/api/groups/delete': groupSchema,
+    '/api/groups/updatebyid': groupSchema
 };

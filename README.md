@@ -49,7 +49,7 @@ Sample valid JSON to create a user:
 	"password": "A1"
 }`
 
-Routes:
+User routes:
 
 http://localhost:4000/api/
 
@@ -66,6 +66,22 @@ PUT:     `users/updatebyid`
 PUT:     `users/delete` (soft delete)
 
 DELETE:  `users/delete/:id` (hard delete)
+
+Group routes:
+
+http://localhost:4000/api/
+
+POST:   `groups/`
+
+GET:    `groups/:id`
+
+GET:     `groups`
+
+PUT:     `groups/updatebyid`
+
+PUT:     `groups/delete` (soft delete)
+
+DELETE:  `groups/delete/:id` (hard delete)
 
 How to create add new entity model and migrations?
 
