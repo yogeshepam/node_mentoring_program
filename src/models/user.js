@@ -8,6 +8,11 @@ module.exports = (sequelize, DataTypes) => {
 
     User.associate = (models) => {
     // associations can be defined here
+        User.belongsToMany(models.Group, {
+            through: models.UserGroup,
+            as: 'groups',
+            foreignKey: 'userId'
+        });
     };
 
     return User;

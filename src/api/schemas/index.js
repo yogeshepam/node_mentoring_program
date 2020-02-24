@@ -8,6 +8,8 @@ const userSchema = Joi.object({
         .max(130)
         .required(),
 
+    groupId: Joi.string(),
+
     isDeleted: Joi.bool().required(),
 
     login: Joi.string()
@@ -23,6 +25,7 @@ const userSchema = Joi.object({
 
 const groupSchema = Joi.object({
     name: Joi.string().required(),
+
     permissions: Joi.array()
         .items(Joi.string()
             .valid([
@@ -31,7 +34,29 @@ const groupSchema = Joi.object({
                 PERMISSIONS.DELETE,
                 PERMISSIONS.SHARE,
                 PERMISSIONS.UPLOAD_FILES
-            ]))
+            ])).required(),
+
+    userId: Joi.string()
+});
+
+const updateGroupSchema = Joi.object({
+    name: Joi.string(),
+
+    permissions: Joi.array()
+        .items(Joi.string()
+            .valid([
+                PERMISSIONS.READ,
+                PERMISSIONS.WRITE,
+                PERMISSIONS.DELETE,
+                PERMISSIONS.SHARE,
+                PERMISSIONS.UPLOAD_FILES
+            ])),
+
+    userId: Joi.string()
+});
+
+const addUsersToGroupSchema = Joi.object({
+    userIds: Joi.array().items(Joi.number().integer()).min(1).required()
 });
 
 export default {
@@ -39,6 +64,6 @@ export default {
     '/api/users/delete': userSchema,
     '/api/users/updatebyid': userSchema,
     '/api/groups/': groupSchema,
-    '/api/groups/delete': groupSchema,
-    '/api/groups/updatebyid': groupSchema
+    '/api/groups/updatebyid': updateGroupSchema,
+    '/api/groups/:groupId/addUsers': addUsersToGroupSchema
 };

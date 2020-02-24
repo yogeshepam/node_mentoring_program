@@ -76,3 +76,35 @@ export const remove = (req, res, next) => {
         });
     });
 };
+
+/**
+ * Function to add users to a group.
+ */
+export const addUsers = (req, res, next) => {
+    const {
+        body: { userIds },
+        params: { groupId }
+    } = req;
+
+    groupService.addUsersToGroup(groupId, userIds, (error, groupDetails) => {
+        if (error) return next(error);
+        return res.status(200).send({
+            groupDetails,
+            message: 'Successfully added list of the users to group'
+        });
+    });
+};
+
+/**
+ * Function to get list of users in a group.
+ */
+export const getUsers = (req, res, next) => {
+    const {
+        params: { groupId }
+    } = req;
+
+    groupService.getUsersInGroup(groupId, (error, groupDetails) => {
+        if (error) return next(error);
+        return res.status(200).send(groupDetails);
+    });
+};

@@ -6,6 +6,7 @@ Dependencies:
 2. Optional: `npm install -g sequelize-cli` 
 (In case you dont', you'll need to prefix every call to the sequelize command with 
 ./node_modules/.bin.)
+3. Run pgAdmin to check DB and tables.
 
 2. Run DB server
 
@@ -40,6 +41,8 @@ Steps to setup:
 
 9. POST, PUT, DELETE APIs can be tested in postman.
 
+Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
+
 Sample valid JSON to create a user:
 
 `{
@@ -48,8 +51,6 @@ Sample valid JSON to create a user:
 	"login": "test@test.com",
 	"password": "A1"
 }`
-
-Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
 
 User routes:
 
@@ -79,15 +80,28 @@ GET:    `groups/:id`
 
 GET:     `groups`
 
-PUT:     `groups/updatebyid`
+PATCH:   `groups/updatebyid`
 
 PUT:     `groups/delete` (soft delete)
 
 DELETE:  `groups/delete/:id` (hard delete)
 
-How to create add new entity model and migrations?
+Add users to group route:
+
+PATCH:  `groups/:groupId/addUsers` 
+
+Get list of users:
+
+GET: `groups/:groupId/getUsers`
+
+How to add new entity model and migrations?
 
 `sequelize model:generate --name Group --attributes name:string,permissions:array:{string}`
+`sequelize model:create --name UserGroup --attributes userId:integer,groupId:integer`
 
 How to create seeder files?
 `sequelize seed:create --name Group`
+
+// how user can be removed from group
+// on deleting group removing traces
+// on deleting user removing traces
