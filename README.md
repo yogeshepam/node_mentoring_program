@@ -94,6 +94,8 @@ Get list of users:
 
 GET: `groups/:groupId/getUsers`
 
+In case you delete user or group from DB, linked records get deleted from UserGroup also.
+
 How to add new entity model and migrations?
 
 `sequelize model:generate --name Group --attributes name:string,permissions:array:{string}`
@@ -101,7 +103,3 @@ How to add new entity model and migrations?
 
 How to create seeder files?
 `sequelize seed:create --name Group`
-
-// how user can be removed from group
-// on deleting group removing traces
-// on deleting user removing traces
