@@ -127,6 +127,58 @@
 						"description": "name: reqd\npermissions: optional"
 					},
 					"response": []
+				},
+				{
+					"name": "Add users to group",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GROUPS}}/2/addUsers",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"2",
+								"addUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of users in group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GROUPS}}/2/getUsers",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"2",
+								"getUsers"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -281,19 +333,19 @@
 	],
 	"variable": [
 		{
-			"id": "372821ec-6897-446b-a924-68165570f80c",
+			"id": "b7eed24c-994f-4798-9647-da2ad26f6a5c",
 			"key": "BASE_URL",
 			"value": "http://localhost:4000/api",
 			"type": "string"
 		},
 		{
-			"id": "2356e49c-31e5-4ca6-adad-bb2f87e4ca22",
+			"id": "6b742d7e-ceca-4593-bd77-b7da4d032997",
 			"key": "GROUPS",
 			"value": "{{BASE_URL}}/groups",
 			"type": "string"
 		},
 		{
-			"id": "26a60a58-f436-4960-ad4b-2e2897cfab41",
+			"id": "677ef727-74f2-48a4-ae90-77cb86bf7802",
 			"key": "USERS",
 			"value": "{{BASE_URL}}/users",
 			"type": "string"
