@@ -6,18 +6,18 @@ import config from './config';
 const startServer = async () => {
     const app = express();
 
-    await Loaders({ expressApp: app });
-
     process
         .on('uncaughtException', (error, origin) => {
             Logger.info(`Caught exception: ${error}, Exception origin: ${origin}`);
         });
 
-    app.listen(config.port, err => {
-        process.on('unhandledRejection', (reason, promise) => {
-            Logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-        });
+    process.on('unhandledRejection', (reason, promise) => {
+        Logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
+    });
 
+    await Loaders({ expressApp: app });
+
+    app.listen(config.port, err => {
         if (err) {
             Logger.error(err);
             process.exit(1);
