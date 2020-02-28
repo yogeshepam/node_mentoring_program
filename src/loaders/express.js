@@ -1,6 +1,7 @@
 import express from 'express';
 import routes from '../api';
 import config from '../config';
+import { logRequestErrors } from '../api/middlewares';
 
 export default ({ app }) => {
     app.use(express.json());
@@ -11,7 +12,7 @@ export default ({ app }) => {
     // catch 404 and forward to error handler
     app.use((req, res, next) => {
         const err = {
-            message: 'Not Found',
+            message: 'Requested URL not found',
             status: 404
         };
 
@@ -29,10 +30,6 @@ export default ({ app }) => {
         return next(err);
     });
 
-    app.use((err, req, res, next) => {
-        res.status(err.status || 500);
-        res.json({
-            errors: err
-        });
-    });
+    // log all handled/unhandled errors
+    app.use(logRequestErrors);
 };

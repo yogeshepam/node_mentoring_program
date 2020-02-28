@@ -1,32 +1,37 @@
 import winston from 'winston';
+import path from 'path';
 import config from '../config';
 
 const transports = [];
+const { format, config: config1, createLogger, transports: transports1 } = winston;
 if (process.env.NODE_ENV !== 'development') {
     transports.push(
-        new winston.transports.Console()
+        new transports1.Console()
     );
 } else {
     transports.push(
-        new winston.transports.Console({
-            format: winston.format.combine(
-                winston.format.cli(),
-                winston.format.splat(),
+        new transports1.Console({
+            format: format.combine(
+                format.cli(),
+                format.splat(),
+                format.colorize(),
+                format.printf(info => `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`)
             )
         })
     );
 }
 
-const LoggerInstance = winston.createLogger({
+const LoggerInstance = createLogger({
     level: config.logs.level,
-    levels: winston.config.npm.levels,
-    format: winston.format.combine(
-        winston.format.timestamp({
+    levels: config1.npm.levels,
+    format: format.combine(
+        format.label({ label: path.basename(process.mainModule.filename) }),
+        format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss'
         }),
-        winston.format.errors({ stack: true }),
-        winston.format.splat(),
-        winston.format.json()
+        format.errors({ stack: true }),
+        format.splat(),
+        format.json()
     ),
     transports
 });

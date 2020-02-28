@@ -1,3 +1,5 @@
 import isValidSchema from './isValidSchema';
+import logRequestErrors from './Loggers/logRequestErrors';
+import logService from './Loggers/logService';
 
-export { isValidSchema };
+export { isValidSchema, logService, logRequestErrors };

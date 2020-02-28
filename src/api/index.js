@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import user from './routes/user';
-import group from "./routes/group";
+import group from './routes/group';
 
 export default () => {
     const app = Router();
