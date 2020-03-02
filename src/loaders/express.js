@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import routes from '../api';
 import config from '../config';
 import { isAuth, logRequestErrors } from '../api/middlewares';
@@ -6,8 +7,13 @@ import { isAuth, logRequestErrors } from '../api/middlewares';
 export default ({ app }) => {
     /**
      * Authenticate all routes except signin
-     * */
+     */
     app.all('*', isAuth);
+
+    /**
+     * Enabling cors from any origin.
+     */
+    app.use(cors());
 
     /**
      * Health Check endpoints
