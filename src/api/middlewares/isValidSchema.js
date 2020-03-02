@@ -1,6 +1,7 @@
 import Joi from 'joi';
 import _ from 'lodash';
 import Schemas from '../schemas';
+import LoggerInstance from '../../loaders/logger';
 
 const isValidSchema = () => (req, res, next) => {
     // enabled HTTP methods for request data validation
@@ -49,6 +50,9 @@ const isValidSchema = () => (req, res, next) => {
             }
             return next();
         }
+    } else {
+        LoggerInstance.error(`No schema found for ${matchPath}`);
+        return next();
     }
 };
 

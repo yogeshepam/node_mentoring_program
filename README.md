@@ -52,6 +52,16 @@ Sample valid JSON to create a user:
 	"password": "A1"
 }`
 
+To consume any API, you need to login first using:
+
+http://localhost:4000/api/auth/signin
+
+In case postman test script doesn't work,
+Copy token from response and save it as a value of ACCESS_TOKEN variable in project envio variables.
+
+401 - Unauthorized error, if authorization header doesn't contains token. 
+403 - Forbidden error, in case provided token is not valid.
+
 User routes:
 
 http://localhost:4000/api/
@@ -103,3 +113,7 @@ How to add new entity model and migrations?
 
 How to create seeder files?
 `sequelize seed:create --name Group`
+
+References:
+
+Timing Attacks [https://blog.sqreen.com/developer-security-best-practices-protecting-against-timing-attacks/]
