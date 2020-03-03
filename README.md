@@ -114,6 +114,12 @@ How to add new entity model and migrations?
 How to create seeder files?
 `sequelize seed:create --name Group`
 
+How to tests CORS?
+Comment out CORS middleware and run testCors.html file, 
+in dev console, you will see CORS error, uncomment the CORS middleware and run again.
+
+Try route `http://localhost:7000/test-cors` in postman and see if you get a token from port 7000.
+
 References:
 
 Timing Attacks [https://blog.sqreen.com/developer-security-best-practices-protecting-against-timing-attacks/]
