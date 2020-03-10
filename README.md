@@ -3,6 +3,10 @@ This repository is for the homework or task assigned under EPAM Node.js global m
 
 Dependencies:
 1. Install DB PostgreSQL on your machine.
+2. Optional: `npm install -g sequelize-cli` 
+(In case you dont', you'll need to prefix every call to the sequelize command with 
+./node_modules/.bin.)
+3. Run pgAdmin to check DB and tables.
 
 Steps to setup:
 
@@ -35,6 +39,8 @@ Steps to setup:
 
 9. POST, PUT, DELETE APIs can be tested in postman.
 
+Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
+
 Sample valid JSON to create a user:
 
 `{
@@ -44,7 +50,7 @@ Sample valid JSON to create a user:
 	"password": "A1"
 }`
 
-Routes:
+User routes:
 
 http://localhost:4000/api/
 
@@ -62,6 +68,36 @@ PUT:     `users/delete` (soft delete)
 
 DELETE:  `users/delete/:id` (hard delete)
 
-Command used to create model and migrations:
+Group routes:
 
-`sequelize model:create --name User --attributes age:Number`
+http://localhost:4000/api/
+
+POST:   `groups/`
+
+GET:    `groups/:id`
+
+GET:     `groups`
+
+PATCH:   `groups/updatebyid`
+
+PUT:     `groups/delete` (soft delete)
+
+DELETE:  `groups/delete/:id` (hard delete)
+
+Add users to group route:
+
+PATCH:  `groups/:groupId/addUsers` 
+
+Get list of users:
+
+GET: `groups/:groupId/getUsers`
+
+In case you delete user or group from DB, linked records get deleted from UserGroup also.
+
+How to add new entity model and migrations?
+
+`sequelize model:generate --name Group --attributes name:string,permissions:array:{string}`
+`sequelize model:create --name UserGroup --attributes userId:integer,groupId:integer`
+
+How to create seeder files?
+`sequelize seed:create --name Group`

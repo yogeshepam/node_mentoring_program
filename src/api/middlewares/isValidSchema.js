@@ -14,15 +14,17 @@ const isValidSchema = () => (req, res, next) => {
     };
 
     const {
+        baseUrl,
         body,
         method,
         route: { path }
     } = req;
 
-    if (_.includes(_supportedMethods, method.toLowerCase()) && _.has(Schemas, path)) {
-        // get schema for the current route path
-        const _schema = _.get(Schemas, path);
+    const matchPath = `${baseUrl}${path}`;
 
+    if (_.includes(_supportedMethods, method.toLowerCase()) && _.has(Schemas, matchPath)) {
+        // get schema for the current route path
+        const _schema = _.get(Schemas, matchPath);
         if (_schema) {
             // Validate req.body using the schema and validation options
             const { error } = Joi.validate(body, _schema, _validationOptions);

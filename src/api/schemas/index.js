@@ -1,4 +1,5 @@
 import Joi from 'joi';
+import PERMISSIONS from '../../utils/enums';
 
 const userSchema = Joi.object({
     age: Joi.number()
@@ -6,6 +7,8 @@ const userSchema = Joi.object({
         .min(4)
         .max(130)
         .required(),
+
+    groupId: Joi.string(),
 
     isDeleted: Joi.bool().required(),
 
@@ -20,8 +23,47 @@ const userSchema = Joi.object({
         .required()
 });
 
+const groupSchema = Joi.object({
+    name: Joi.string().required(),
+
+    permissions: Joi.array()
+        .items(Joi.string()
+            .valid([
+                PERMISSIONS.READ,
+                PERMISSIONS.WRITE,
+                PERMISSIONS.DELETE,
+                PERMISSIONS.SHARE,
+                PERMISSIONS.UPLOAD_FILES
+            ])).required(),
+
+    userId: Joi.string()
+});
+
+const updateGroupSchema = Joi.object({
+    name: Joi.string(),
+
+    permissions: Joi.array()
+        .items(Joi.string()
+            .valid([
+                PERMISSIONS.READ,
+                PERMISSIONS.WRITE,
+                PERMISSIONS.DELETE,
+                PERMISSIONS.SHARE,
+                PERMISSIONS.UPLOAD_FILES
+            ])),
+
+    userId: Joi.string()
+});
+
+const addUsersToGroupSchema = Joi.object({
+    userIds: Joi.array().items(Joi.number().integer()).min(1).required()
+});
+
 export default {
-    '/': userSchema,
-    '/delete': userSchema,
-    '/updatebyid': userSchema
+    '/api/users/': userSchema,
+    '/api/users/delete': userSchema,
+    '/api/users/updatebyid': userSchema,
+    '/api/groups/': groupSchema,
+    '/api/groups/updatebyid': updateGroupSchema,
+    '/api/groups/:groupId/addUsers': addUsersToGroupSchema
 };

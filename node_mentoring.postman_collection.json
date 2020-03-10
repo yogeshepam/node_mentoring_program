@@ -1,0 +1,355 @@
+{
+	"info": {
+		"_postman_id": "68522b13-197e-4730-93f0-0bd3338ef41d",
+		"name": "node_mentoring",
+		"description": "EPAM node_mentoring APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "groups",
+			"item": [
+				{
+					"name": "Get all groups",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GROUPS}}/",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get group by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GROUPS}}/1",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update group by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 1,\n\t\"name\": \"Mentors\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GROUPS}}/updatebyid",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"updatebyid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GROUPS}}/delete/1",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Mentors\",\n\t\"permissions\": [\n                  \"READ\",\n                  \"WRITE\",\n                  \"DELETE\",\n                  \"SHARE\",\n                  \"UPLOAD_FILES\"\n                  ]\n\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GROUPS}}/",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "name: reqd\npermissions: optional"
+					},
+					"response": []
+				},
+				{
+					"name": "Add users to group",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userIds\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GROUPS}}/2/addUsers",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"2",
+								"addUsers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get list of users in group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GROUPS}}/2/getUsers",
+							"host": [
+								"{{GROUPS}}"
+							],
+							"path": [
+								"2",
+								"getUsers"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{USERS}}/",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{USERS}}/1",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user by id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": 100,\n\t\"name\": \"Mentors\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{USERS}}/updatebyid",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								"updatebyid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{USERS}}/delete/1",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"age\": \"42\",\r\n\t\"isDeleted\": false,\r\n\t\"login\": \"test@test.com\",\r\n\t\"password\": \"A1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{USERS}}/",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								""
+							]
+						},
+						"description": "name: reqd\npermissions: optional"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "9d9d7abe-eaf4-4334-a072-28fa367a9378",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "546ec82f-fafd-46a4-bca8-47f70025d42b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "b7eed24c-994f-4798-9647-da2ad26f6a5c",
+			"key": "BASE_URL",
+			"value": "http://localhost:4000/api",
+			"type": "string"
+		},
+		{
+			"id": "6b742d7e-ceca-4593-bd77-b7da4d032997",
+			"key": "GROUPS",
+			"value": "{{BASE_URL}}/groups",
+			"type": "string"
+		},
+		{
+			"id": "677ef727-74f2-48a4-ae90-77cb86bf7802",
+			"key": "USERS",
+			"value": "{{BASE_URL}}/users",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
