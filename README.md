@@ -8,8 +8,6 @@ Dependencies:
 ./node_modules/.bin.)
 3. Run pgAdmin to check DB and tables.
 
-2. Run DB server
-
 Steps to setup:
 
 1. Clone repo.
