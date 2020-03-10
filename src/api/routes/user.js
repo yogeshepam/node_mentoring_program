@@ -15,11 +15,10 @@ export default app => {
     /**
      * To get the single user by their id.
      */
-    route.get('/user/:id', user.find);
+    route.get('/:id', user.find);
 
     /**
      * To get all the users or to filter limit users.
-     * http://localhost:4000/api/users?loginSubstring=@go&&limit=2
      */
     route.get('/', user.find);
 

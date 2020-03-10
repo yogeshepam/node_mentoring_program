@@ -1,4 +1,4 @@
-import User from '../../models/user';
+import User from '../models/user.mongoose';
 
 /**
  * Function to execute the create query to create the user.
@@ -7,15 +7,7 @@ import User from '../../models/user';
  */
 export const createUser = (userData, callback) => {
     const user = new User(userData);
-    User.create(user, async (error, result) => {
-        const updatedUsers = await User.find();
-
-        callback(error, {
-            message: 'Successfully added new user',
-            newUser: result,
-            users: updatedUsers
-        });
-    });
+    User.create(user, (error, result) => callback(error, result));
 };
 
 /**
@@ -42,7 +34,10 @@ export const findUsers = callback => {
  * @param {*} callback callback function
  */
 export const updateUserById = (id, newData, callback) => {
-    User.findOneAndUpdate({ id }, newData, async (error, result) => callback(error, result));
+    User.findOneAndUpdate({ id }, newData, (error, result) => {
+        if (!result) return callback(error, '');
+        callback(error, result);
+    });
 };
 
 /**
@@ -51,7 +46,10 @@ export const updateUserById = (id, newData, callback) => {
  * @param {*} callback callback function
  */
 export const deleteUserById = (id, callback) => {
-    User.deleteOne({ id }, (error, result) => callback(error, result.result));
+    User.deleteOne({ id }, (error, result) => {
+        if (!result.result.n) return callback(error, '');
+        return callback(error, result.result);
+    });
 };
 
 /**
