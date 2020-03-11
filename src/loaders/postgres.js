@@ -9,7 +9,6 @@ export default async () => {
         await client.connect();
         Logger.info('✌️Postgres DB loaded and connected!');
     } catch (e) {
-        console.log('e', e.message);
-        Logger.info('> error occurred from the postgress database!');
+        Logger.error('> error occurred from the postgress database!');
     }
 };

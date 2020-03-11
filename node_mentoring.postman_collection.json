@@ -46,7 +46,7 @@
 				{
 					"name": "update group by id",
 					"request": {
-						"method": "PUT",
+						"method": "PATCH",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -57,7 +57,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 1,\n\t\"name\": \"Mentors\"\n}",
+							"raw": "{\n\t\"id\": 1,\n\t\"name\": \"Mentorss\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -234,7 +234,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"id\": 100,\n\t\"name\": \"Mentors\"\n}",
+							"raw": "{\r\n\t\"id\": \"1\",\r\n\t\"age\": \"42\",\r\n\t\"isDeleted\": false,\r\n\t\"login\": \"test@test.com\",\r\n\t\"password\": \"A1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -304,6 +304,33 @@
 						"description": "name: reqd\npermissions: optional"
 					},
 					"response": []
+				},
+				{
+					"name": "get users by loginSubstring filter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{USERS}}/?loginSubstring=@&limit=2",
+							"host": [
+								"{{USERS}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "loginSubstring",
+									"value": "@"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -333,19 +360,19 @@
 	],
 	"variable": [
 		{
-			"id": "b7eed24c-994f-4798-9647-da2ad26f6a5c",
+			"id": "ab37abe1-f8a8-4b4a-8f2c-2142f19b8896",
 			"key": "BASE_URL",
 			"value": "http://localhost:4000/api",
 			"type": "string"
 		},
 		{
-			"id": "6b742d7e-ceca-4593-bd77-b7da4d032997",
+			"id": "9418e8b7-5090-4586-8f10-20d543171ab0",
 			"key": "GROUPS",
 			"value": "{{BASE_URL}}/groups",
 			"type": "string"
 		},
 		{
-			"id": "677ef727-74f2-48a4-ae90-77cb86bf7802",
+			"id": "cd10e61b-6dde-41b6-b980-e211a44a8df7",
 			"key": "USERS",
 			"value": "{{BASE_URL}}/users",
 			"type": "string"

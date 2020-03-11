@@ -1,5 +1,7 @@
 import * as groupService from '../../services/group.postgres';
+import logController from '../../utils/logController';
 
+const fileName = 'controller/group.js';
 /**
  * Function to create a group.
  */
@@ -7,7 +9,10 @@ export const create = (req, res, next) => {
     const { body } = req;
 
     groupService.createGroup(body, (error, newGroup) => {
-        if (error) return next(error);
+        if (error) {
+            logController(`create in ${fileName}`, body, error);
+            return next(error);
+        }
         return res.status(200).json({
             message: 'Successfully added new group',
             newGroup
@@ -24,7 +29,10 @@ export const find = (req, res, next) => {
 
     if (id) {
         groupService.findGroup(id, (error, group) => {
-            if (error) return next(error);
+            if (error) {
+                logController(`find in ${fileName}`, id, error);
+                return next(error);
+            }
             if (!group.length) {
                 return res
                     .status(404)
@@ -34,7 +42,10 @@ export const find = (req, res, next) => {
         });
     } else {
         groupService.findGroups((error, allGroups) => {
-            if (error) return next(error);
+            if (error) {
+                logController(`find Groups in ${fileName}`, error);
+                return next(error);
+            }
             return res.status(200).json(allGroups);
         });
     }
@@ -46,7 +57,10 @@ export const find = (req, res, next) => {
 export const update = (req, res, next) => {
     const { body } = req;
     groupService.updateGroupById(body.id, body, (error, updatedGroup) => {
-        if (error) return next(error);
+        if (error) {
+            logController(`update in ${fileName}`, body, error);
+            return next(error);
+        }
         if (!updatedGroup) {
             return res.status(404).json({ message: `Group with id ${body.id} doesn't exist` });
         }
@@ -66,7 +80,10 @@ export const remove = (req, res, next) => {
     } = req;
 
     groupService.deleteGroupById(id, (error, deletedGroup) => {
-        if (error) return next(error);
+        if (error) {
+            logController(`remove in ${fileName}`, id, error);
+            return next(error);
+        }
         if (!deletedGroup) {
             return res.status(404).json({ message: `Group with id ${id} doesn't exist` });
         }
@@ -87,7 +104,10 @@ export const addUsers = (req, res, next) => {
     } = req;
 
     groupService.addUsersToGroup(groupId, userIds, (error, groupDetails) => {
-        if (error) return next(error);
+        if (error) {
+            logController(`addUsers in ${fileName}`, { userIds, groupId }, error);
+            return next(error);
+        }
         return res.status(200).send({
             groupDetails,
             message: 'Successfully added list of the users to group'
@@ -104,7 +124,10 @@ export const getUsers = (req, res, next) => {
     } = req;
 
     groupService.getUsersInGroup(groupId, (error, groupDetails) => {
-        if (error) return next(error);
+        if (error) {
+            logController(`getUsers in ${fileName}`, groupId, error);
+            return next(error);
+        }
         return res.status(200).send(groupDetails);
     });
 };
