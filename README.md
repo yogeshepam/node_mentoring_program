@@ -41,6 +41,12 @@ Steps to setup:
 
 9. POST, PUT, DELETE APIs can be tested in postman.
 
+10. Scripts for testing:
+
+    `pretest` - npm script that is automatically invoked when the npm test command is invoked. Command changes the environment to test and refresh the database before each test runs.
+    
+    `migrate:reset`: This command will be responsible for refreshing the database before each test runs.
+
 Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
 
 Sample valid JSON to create a user:
