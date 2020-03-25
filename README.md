@@ -43,6 +43,10 @@ Steps to setup:
 
 10. Scripts for testing:
 
+    `test` - Runs units tests added to project.
+    
+    `coverage` - Adds coverage report for project in `coverage/lcov-report/api/controller/index.html`. (100% for both controllers)
+    
     `pretest` - npm script that is automatically invoked when the npm test command is invoked. Command changes the environment to test and refresh the database before each test runs.
     
     `migrate:reset`: This command will be responsible for refreshing the database before each test runs.
@@ -123,6 +127,8 @@ How to create seeder files?
 How to tests CORS?
 Comment out CORS middleware and run testCors.html file, 
 in dev console, you will see CORS error, uncomment the CORS middleware and run again.
+
+Information on DB connection can be found in .env file and is consumed in project in `config,postgres.js`
 
 Try route `http://localhost:7000/test-cors` in postman and see if you get a token from port 7000.
 
