@@ -39,9 +39,21 @@ Steps to setup:
     
     `{"ok":true}`
 
-9. POST, PUT, DELETE APIs can be tested in postman.
+9. POST, PUT, DELETE APIs can be tested in postman. You can import
+    `node_mentoring.postman_collection.json` in postman. To consume any API:
+    
+    9.1 Request token using `POST` `http://localhost:4000/api/auth/signin` with valid username and password of existing user,
+        If you have used seeders script you can use any of those 3 username & passwords to create token. 
+        For test purposes postman contains valid body for signIn. Once you will receive token it will be set in envio 
+        variables through postman scipt.
+        In case postman script fails copy token from response and save it as a value of ACCESS_TOKEN variable in project 
+        envio variables.
+        
+    9.2 Token should be valid else you will get these errors:
+        
+        401 - Unauthorized error, if authorization header doesn't contains token. 
+        403 - Forbidden error, in case provided token is not valid.
 
-Import `node_mentoring.postman_collection.json` in postman to try apis for users and groups. Else,
 
 Sample valid JSON to create a user:
 
@@ -103,3 +115,15 @@ How to add new entity model and migrations?
 
 How to create seeder files?
 `sequelize seed:create --name Group`
+
+How to tests CORS?
+    1. Comment out CORS middleware `app.use(cors());` in `express.js` file.
+    2. Run testCors.html file.
+    3. Open dev console and there will be CORS error.
+    4. Uncomment the CORS middleware and re run, there won't be any CORS issue.
+
+Try route `http://localhost:7000/test-cors` in postman and see if you get a token from port 7000.
+
+References:
+
+Timing Attacks [https://blog.sqreen.com/developer-security-best-practices-protecting-against-timing-attacks/]

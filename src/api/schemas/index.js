@@ -59,11 +59,17 @@ const addUsersToGroupSchema = Joi.object({
     userIds: Joi.array().items(Joi.number().integer()).min(1).required()
 });
 
+const signInSchema = Joi.object({
+    username: Joi.string().required(),
+    password: Joi.string().required()
+});
+
 export default {
     '/api/users/': userSchema,
     '/api/users/delete': userSchema,
     '/api/users/updatebyid': userSchema,
     '/api/groups/': groupSchema,
     '/api/groups/updatebyid': updateGroupSchema,
-    '/api/groups/:groupId/addUsers': addUsersToGroupSchema
+    '/api/groups/:groupId/addUsers': addUsersToGroupSchema,
+    '/api/auth/signin': signInSchema
 };

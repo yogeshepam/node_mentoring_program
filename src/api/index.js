@@ -1,14 +1,12 @@
 import { Router } from 'express';
-import user from './routes/user';
+import auth from './routes/auth';
 import group from './routes/group';
+import user from './routes/user';
 
 export default () => {
     const app = Router();
 
-    app.get('/', (req, res) => {
-        res.json({ ok: true });
-    });
-
+    auth(app);
     user(app);
     group(app);
 

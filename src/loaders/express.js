@@ -1,9 +1,31 @@
 import express from 'express';
+import cors from 'cors';
 import routes from '../api';
 import config from '../config';
-import { logRequestErrors } from '../api/middlewares';
+import { isAuth, logRequestErrors } from '../api/middlewares';
 
 export default ({ app }) => {
+    /**
+     * Authenticate all routes except signin
+     */
+    app.all('*', isAuth);
+
+    /**
+     * Enabling cors from any origin.
+     */
+    app.use(cors());
+
+    /**
+     * Health Check endpoints
+     */
+    app.get('/status', (req, res) => {
+        res.status(200).end();
+    });
+    app.head('/status', (req, res) => {
+        res.status(200).end();
+    });
+
+    // Middleware that transforms the raw string of req.body into json
     app.use(express.json());
 
     // load API routes
@@ -21,6 +43,9 @@ export default ({ app }) => {
 
     // error handlers
     app.use((err, req, res, next) => {
+        /**
+         * Handle 401 thrown by express-jwt library
+         */
         if (err.name === 'UnauthorizedError') {
             return res
                 .status(err.status)
