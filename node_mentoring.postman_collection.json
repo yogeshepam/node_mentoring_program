@@ -205,16 +205,34 @@
 				},
 				{
 					"name": "Get user by id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2d45251e-2d6f-484a-a622-b72c8e4f633d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{USERS}}/1",
+							"raw": "{{USERS}}/5",
 							"host": [
 								"{{USERS}}"
 							],
 							"path": [
-								"1"
+								"5"
 							]
 						}
 					},
@@ -334,8 +352,97 @@
 				}
 			],
 			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "authentication",
+			"item": [
+				{
+					"name": "sign in user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "55aa29ac-da02-4da7-b5cf-615827b6b9b3",
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"ACCESS_TOKEN\", data.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"temp@gmail.com\",\n\t\"password\": \"1ER\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{AUTH}}/signin/",
+							"host": [
+								"{{AUTH}}"
+							],
+							"path": [
+								"signin",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "APIs to check app health and authenticate",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "test-cors",
+			"item": [
+				{
+					"name": "Test cors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:7000/test-cors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"test-cors"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
 		}
 	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{ACCESS_TOKEN}}",
+				"type": "string"
+			}
+		]
+	},
 	"event": [
 		{
 			"listen": "prerequest",
@@ -360,21 +467,33 @@
 	],
 	"variable": [
 		{
-			"id": "ab37abe1-f8a8-4b4a-8f2c-2142f19b8896",
+			"id": "0c0499b2-203d-474f-b8b4-de574ac8be52",
 			"key": "BASE_URL",
 			"value": "http://localhost:4000/api",
 			"type": "string"
 		},
 		{
-			"id": "9418e8b7-5090-4586-8f10-20d543171ab0",
+			"id": "87118a61-90b7-4720-90c6-ad3d71698b1a",
 			"key": "GROUPS",
 			"value": "{{BASE_URL}}/groups",
 			"type": "string"
 		},
 		{
-			"id": "cd10e61b-6dde-41b6-b980-e211a44a8df7",
+			"id": "e65e68ab-738a-4215-a42e-85301c17a1b6",
 			"key": "USERS",
 			"value": "{{BASE_URL}}/users",
+			"type": "string"
+		},
+		{
+			"id": "f67bb92f-48b7-4298-90aa-7f9eee704f05",
+			"key": "AUTH",
+			"value": "{{BASE_URL}}/auth",
+			"type": "string"
+		},
+		{
+			"id": "50bc0ce2-7c47-4368-a03c-ca104cc878e1",
+			"key": "ACCESS_TOKEN",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlvZ2VzaGRldmd1bkBnbWFpbC5jb20iLCJleHAiOjE1ODgzMzc3NDAyNzQsImlhdCI6MTU4MzE1NzM0MH0.x6mNOYVFX1WUjcabw0zapjmtSDYWn6Sg9lSCP1J5GnA",
 			"type": "string"
 		}
 	],
